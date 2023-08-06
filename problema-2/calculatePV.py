@@ -2,7 +2,7 @@ import datetime as dt
 
 
 def date_format(date):
-    split_date = date.replace("-", "/").replace(".", "/").split("/")
+    split_date = date.replace(",", "/").replace("-", "/").replace(".", "/").split("/")
     return dt.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
 
 
@@ -31,10 +31,14 @@ def calculate_present_value_form():
 
     while future_date_isValid == False:
         future_date = input("Insira a data futura (dd/mm/aaaa): ")
-        if duration_time(future_date) > 0:
-            future_date_isValid = True
+
+        if len(future_date.strip()) != 10:
+            print("Por favor insira a data em um formato válido!")
         else:
-            print("Por favor insira uma data válida! (maior que o dia de hoje)")
+            if duration_time(future_date) > 0:
+                future_date_isValid = True
+            else:
+                print("Por favor insira uma data válida! (maior que o dia de hoje)")
 
     present_value = calculate_present_value(future_value, interest_rate, future_date)
     MOI = (future_value / present_value) - 1
