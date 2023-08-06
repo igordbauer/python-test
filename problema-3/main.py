@@ -1,10 +1,4 @@
-obj = {"0": "A", "1": "B", "2": "C", "3": "D", "4": "E"}
-
-
-# def return_index(converted_answer):
-#     for index, i in enumerate(converted_answer, start=0):
-#         if converted_answer[index] == 1:
-#             return index
+possible_choices = {"0": "A", "1": "B", "2": "C", "3": "D", "4": "E"}
 
 
 def return_index(converted_answer):
@@ -26,10 +20,10 @@ def convert_answer(answers):
 
     converted_answer = []
     for answer in int_answer_array:
-        if int(answer) <= 127:
-            converted_answer.append(1)
-        else:
+        if int(answer) > 127 or int(answer) < 0:
             converted_answer.append(0)
+        else:
+            converted_answer.append(1)
 
     return converted_answer
 
@@ -43,20 +37,19 @@ def isValid_answer(element):
 
 def check_result(converted_answer):
     filtered_answer_list = list(filter(isValid_answer, converted_answer))
-    if len(filtered_answer_list) > 1:
+    if len(filtered_answer_list) != 1:
         return "*"
     else:
-        return obj[f"{return_index(converted_answer)}"]
+        return possible_choices[f"{return_index(converted_answer)}"]
 
 
+# Receive page number
 number_page_questions = int(input())
-final_result_array = []
-while number_page_questions != 0:
+
+# Receive answers
+while number_page_questions > 0:
     for question in range(number_page_questions):
         answer = str(input())
         final_result = check_result(convert_answer(answer))
-        final_result_array.append(final_result)
+        print(final_result)
     number_page_questions = int(input())
-
-for i in final_result_array:
-    print(i)
