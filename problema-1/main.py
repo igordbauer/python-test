@@ -9,7 +9,7 @@ class MonetaryValue:
         self.separator = separator[0]
 
     def valorFloat(self):
-        return float(self.int_value)
+        return float(self.int_value.replace(",", "."))
 
     def finalValue(self, coin_type, separator):
         counter = ","
