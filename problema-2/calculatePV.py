@@ -21,21 +21,23 @@ def calculate_present_value(future_value, interest_rate, future_date):
     return present_value
 
 
-future_value = float(input("Insira o valor futuro:"))
-interest_rate = float(input("Insira a taxa de juros (em porcentagem): "))
+def calculate_present_value_form():
+    future_value = float(input("Insira o valor futuro:").replace(",", "."))
+    interest_rate = float(
+        input("Insira a taxa de juros (em porcentagem): ").replace(",", ".")
+    )
 
+    future_date_isValid = False
 
-future_date_isValid = False
+    while future_date_isValid == False:
+        future_date = input("Insira a data futura (dd/mm/aaaa): ")
+        if duration_time(future_date) > 0:
+            future_date_isValid = True
+        else:
+            print("Por favor insira uma data válida! (maior que o dia de hoje)")
 
-while future_date_isValid == False:
-    future_date = input("Insira a data futura (dd/mm/aaaa): ")
-    if duration_time(future_date) > 0:
-        future_date_isValid = True
-    else:
-        print("Por favor insira uma data válida! (maior que o dia de hoje)")
+    present_value = calculate_present_value(future_value, interest_rate, future_date)
+    MOI = (future_value / present_value) - 1
 
-present_value = calculate_present_value(future_value, interest_rate, future_date)
-MOI = (future_value / present_value) - 1
-
-print(f"Valor presente: {present_value:.2f}")
-print(f"Margem sobre investimento de: {MOI:.2%}")
+    print(f"Valor presente: {present_value:.2f}")
+    print(f"Margem sobre investimento de: {MOI:.2%}")
